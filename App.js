@@ -21,14 +21,14 @@ class CounterButton extends React.Component {
             counter: this.state.counter +1,
         });
     };
-  render() {
-    return(
-        <View>
-          <Text>{this.state.counter}</Text>
-          <Button title={'click me!'} onPress={this.clickHandler}/>
-        </View>
-    );
-  }
+    render() {
+        return(
+            <View style={styles.buttonContainer}>
+                <Text>{this.state.counter}</Text>
+                <Button title={'click me!'} onPress={this.clickHandler}/>
+            </View>
+        );
+    }
 }
 
 export default class App extends React.Component {
@@ -45,10 +45,13 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    buttonContainer: {
+        width: 300,
+    },
 });
