@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Constants } from 'expo';
 
 
@@ -7,25 +7,21 @@ export default class App extends React.Component {
     render() {
         return(
             <ScrollView style={styles.container}>
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
-                <Image source={{uri: "https://facebook.github.io/react-native/img/favicon.png", width: 64, height: 64}} />
+                <View style={styles.item}>
+                    <Text style={styles.text}>Apple</Text>
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.text}>Banana</Text>
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.text}>Cherries</Text>
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.text}>Damson plum</Text>
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.text}>...</Text>
+                </View>
             </ScrollView>
         );
     }
@@ -36,9 +32,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
 
-        borderColor: 'red',
+        borderColor: 'orange',
 
         marginTop: Constants.statusBarHeight,
-        borderWidth: 2,
+        borderWidth: 1,
     },
+    item: {
+        fontSize : 20,
+        textAlign: 'center',
+    },
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
+    }
 });
