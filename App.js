@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import { Constants } from 'expo';
 
 
 export default class App extends React.Component {
@@ -19,6 +20,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
 
         borderColor: 'red',
+
+        marginTop: Constants.statusBarHeight,
         borderWidth: 2,
     },
 });
