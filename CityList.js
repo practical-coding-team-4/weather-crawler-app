@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import { Constants } from 'expo';
 
 
-export default class App extends React.Component {
+export default class CityList extends React.Component {
     constructor(props) {
         super(props);
 
