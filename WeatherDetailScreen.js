@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { Image, StyleSheet, View, Text } from 'react-native';
 import { Constants } from 'expo';
 
 export default class WeatherDetailScreen extends React.Component {
@@ -42,9 +42,15 @@ export default class WeatherDetailScreen extends React.Component {
         }
 
         let celsius = this.state.main.temp - 273.15;
+        let icon = this.state.weather[0].icon;
+        console.log("icon is " + icon);
 
         return (
             <View style={styles.container}>
+                <Text>날씨</Text>
+                <Image
+                    style={{width: 150, height: 150}}
+                    source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} />
                 <Text>온도: {celsius.toFixed(1)}</Text>
             </View>
         );
