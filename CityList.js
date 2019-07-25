@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import { Constants } from 'expo';
 
 
@@ -12,7 +13,9 @@ export default class CityList extends React.Component {
         super(props);
 
         this.state = {
-            citites: [],
+            cities: [],
+            search: '',
+            loading: false,
         }
     }
 
@@ -22,7 +25,8 @@ export default class CityList extends React.Component {
             .then(cities => {
                 console.log('cities =', cities.length);
                 this.setState({
-                    cities
+                    cities,
+                    data: cities
                 });
             });
     }
@@ -44,13 +48,44 @@ export default class CityList extends React.Component {
         );
     }
 
-    render() {
-        return(
-            <FlatList style={styles.container}
-                      renderItem={({ item }) => this.renderItem(item)}
-                      keyExtractor={item=>item}
-                      data = {this.state.cities}
+    renderHeader = () => {
+        return (
+            <SearchBar
+                placeholder="Type Here..."
+                value={this.state.value }
+                onChangeText={text => this.searchFilterFunction(text) }
             />
+        )
+    };
+
+    searchFilterFunction = text => {
+        this.setState({
+            value: text
+        });
+
+        const newData = this.state.cities.filter(city => {
+            const cityData = city.toUpperCase();
+            const textData = text.toUpperCase();
+            return cityData.includes(textData);
+        });
+
+        this.setState({
+            data: newData
+        });
+    };
+
+    render() {
+        const {search} = this.state;
+
+        return(
+                <FlatList
+                    style={styles.container}
+                    renderItem={({ item }) => this.renderItem(item)}
+                    keyExtractor={item=>item}
+                    data = {this.state.data}
+                    extraData = {this.state}
+                    ListHeaderComponent={this.renderHeader}
+                />
         );
     }
 }
