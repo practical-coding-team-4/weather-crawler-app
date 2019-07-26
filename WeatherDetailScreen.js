@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { Constants } from 'expo';
+import {Font} from 'expo';
 
 export default class WeatherDetailScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -14,14 +15,21 @@ export default class WeatherDetailScreen extends React.Component {
 
         this.state = {
             isLoading: true,
+            fontLoaded:false,
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await Font.loadAsync({
+            'BMHANNA_11yrs': require('./assets/fonts/BMHANNA_11yrs.ttf'),
+          });
+        this.setState({ fontLoaded: true });
+
+
         const { navigation } = this.props;
         const city = 'Daejeon';
 
-        fetch(`http://demo6468405.mockable.io/weather-crawlers/current-weathers/by-city-name/${city}`)
+         fetch(`http://demo6468405.mockable.io/weather-crawlers/current-weathers/by-city-name/${city}`)
             .then(response => response.json())
             .then(info => {
                 console.log(info);
@@ -45,15 +53,18 @@ export default class WeatherDetailScreen extends React.Component {
         let icon = this.state.weather[0].icon;
         console.log("icon is " + icon);
 
-        return (
-            <View style={styles.container}>
-                <Text>날씨</Text>
-                <Image
-                    style={{width: 150, height: 150}}
-                    source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} />
-                <Text>온도: {celsius.toFixed(1)}</Text>
-            </View>
-        );
+        if(this.state.fontLoaded){
+            return (
+                <View style={styles.container}>
+                    <Text style={[styles.default_text,styles.give_margin]}>현재 날씨는</Text>
+                    <Image
+                        style={{width: 200, height:200}}
+                        source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} />
+                    <Text style={styles.default_text}>현재 온도는</Text>
+                    <Text style={[styles.celsius_text,styles.give_margin]}>{celsius.toFixed(1)} ℃</Text>
+                </View>
+            );
+        }
     }
 }
 
@@ -62,5 +73,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         marginTop: Constants.statusBarHeight,
+        alignItems : 'center',
     },
+    default_text: {
+        fontSize: 50,
+        fontFamily :'BMHANNA_11yrs',
+    },
+    celsius_text:{
+        fontSize : 65,
+        fontWeight : "bold",
+        fontStyle : "italic",
+    },
+    give_margin:{
+        marginTop : 40,
+    }
 });
+
+
