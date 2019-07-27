@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, View, Text } from 'react-native';
-import { Constants } from 'expo';
-import {Font} from 'expo';
+import { Image, StyleSheet, View, Text, Button, Linking } from 'react-native';
+import Constants from 'expo-constants';
+import * as Font from 'expo-font'
 
 export default class WeatherDetailScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -38,6 +38,7 @@ export default class WeatherDetailScreen extends React.Component {
                     isLoading: false,
                 });
             });
+
     }
 
     render() {
@@ -51,6 +52,8 @@ export default class WeatherDetailScreen extends React.Component {
 
         let celsius = this.state.main.temp - 273.15;
         let icon = this.state.weather[0].icon;
+        let cityName = this.state.name;
+
         console.log("icon is " + icon);
 
         if(this.state.fontLoaded){
@@ -62,6 +65,9 @@ export default class WeatherDetailScreen extends React.Component {
                         source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} />
                     <Text style={styles.default_text}>현재 온도는</Text>
                     <Text style={[styles.celsius_text,styles.give_margin]}>{celsius.toFixed(1)} ℃</Text>
+                    <Button title={'자세한 정보'} onPress={()=>Linking.openURL(
+                        `https://openweathermap.org/find?q=${cityName}`
+                    )} />
                 </View>
             );
         }

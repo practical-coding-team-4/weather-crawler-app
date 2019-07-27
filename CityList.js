@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { Constants } from 'expo';
+import Constants from 'expo-constants';
 
 
 export default class CityList extends React.Component {
