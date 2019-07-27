@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, View, Text, Button, Linking } from 'react-native';
-import Constants from 'expo-constants';
+import {StyleSheet, View, Text } from 'react-native';
 import * as Font from 'expo-font'
+import Weather from './Weather';
 
 export default class WeatherDetailScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -16,6 +16,8 @@ export default class WeatherDetailScreen extends React.Component {
         this.state = {
             isLoading: true,
             fontLoaded:false,
+            temperature: 0,
+            weatherCondition: null,
         };
     }
 
@@ -35,6 +37,8 @@ export default class WeatherDetailScreen extends React.Component {
                 console.log(info);
                 this.setState({
                     ...info,
+                    temperature: info.main.temp,
+                    weatherCondition: info.weather[0].main,
                     isLoading: false,
                 });
             });
@@ -53,21 +57,15 @@ export default class WeatherDetailScreen extends React.Component {
         let celsius = this.state.main.temp - 273.15;
         let icon = this.state.weather[0].icon;
         let cityName = this.state.name;
+        let weatherCondition = this.state.weatherCondition;
+        let temperature = this.state.temperature - 273.11;
 
         console.log("icon is " + icon);
 
         if(this.state.fontLoaded){
             return (
                 <View style={styles.container}>
-                    <Text style={[styles.default_text,styles.give_margin]}>현재 날씨는</Text>
-                    <Image
-                        style={{width: 200, height:200}}
-                        source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} />
-                    <Text style={styles.default_text}>현재 온도는</Text>
-                    <Text style={[styles.celsius_text,styles.give_margin]}>{celsius.toFixed(1)} ℃</Text>
-                    <Button title={'자세한 정보'} onPress={()=>Linking.openURL(
-                        `https://openweathermap.org/find?q=${cityName}`
-                    )} />
+                     <Weather weather={weatherCondition} temperature={temperature} cityName={cityName}/>
                 </View>
             );
         }
@@ -78,8 +76,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        marginTop: Constants.statusBarHeight,
-        alignItems : 'center',
     },
     default_text: {
         fontSize: 50,
